@@ -1,19 +1,17 @@
-export class SimplePriorityQueue<T extends { id: number | string, priority: number, insertOrder: number }> {
+export class SimplePriorityQueue<T extends { id: number | string, priority: number, insertTime: number }> {
   private queue: T[] = [];
-  private insertOrder = 0;
 
   constructor() {
     this.queue = [];
   }
 
   enqueue(item: T) {
-    const itemWithCounter = { ...item, insertOrder: this.insertOrder++ };
-    this.queue.push(itemWithCounter);
+    this.queue.push(item);
     this.queue.sort((a, b) => {
       if (a.priority !== b.priority) {
         return b.priority - a.priority; // Descending priority
       }
-      return a.insertOrder - b.insertOrder; // FIFO for equal priority
+      return a.insertTime - b.insertTime; // FIFO for equal priority
     });
   }
 

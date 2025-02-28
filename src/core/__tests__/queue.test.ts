@@ -3,7 +3,7 @@ import { SimplePriorityQueue } from '../queue';
 interface TestItem {
   id: number | string;
   priority: number;
-  insertOrder: number;
+  insertTime: number;
 }
 
 describe('SimplePriorityQueue', () => {
@@ -23,16 +23,16 @@ describe('SimplePriorityQueue', () => {
 
   describe('enqueue', () => {
     it('should add an item to the queue', () => {
-      const item: TestItem = { id: 1, priority: 1, insertOrder: 0 };
+      const item: TestItem = { id: 1, priority: 1, insertTime: 0 };
       queue.enqueue(item);
       expect(queue.size()).toBe(1);
       expect(queue.getItems()).toContainEqual(item);
     });
 
     it('should sort items by priority in descending order', () => {
-      const item1: TestItem = { id: 1, priority: 1, insertOrder: 0 };
-      const item2: TestItem = { id: 2, priority: 3, insertOrder: 1 };
-      const item3: TestItem = { id: 3, priority: 2, insertOrder: 2 };
+      const item1: TestItem = { id: 1, priority: 1, insertTime: 0 };
+      const item2: TestItem = { id: 2, priority: 3, insertTime: 1 };
+      const item3: TestItem = { id: 3, priority: 2, insertTime: 2 };
 
       queue.enqueue(item1);
       queue.enqueue(item2);
@@ -45,8 +45,8 @@ describe('SimplePriorityQueue', () => {
     });
 
     it('should maintain order for items with same priority', () => {
-      const item1: TestItem = { id: 1, priority: 2, insertOrder: 0 };
-      const item2: TestItem = { id: 2, priority: 2, insertOrder: 1 };
+      const item1: TestItem = { id: 1, priority: 2, insertTime: 0 };
+      const item2: TestItem = { id: 2, priority: 2, insertTime: 1 };
 
       queue.enqueue(item1);
       queue.enqueue(item2);
@@ -58,9 +58,9 @@ describe('SimplePriorityQueue', () => {
 
   describe('dequeue', () => {
     it('should remove and return the highest priority item', () => {
-      const item1: TestItem = { id: 1, priority: 1, insertOrder: 0 };
-      const item2: TestItem = { id: 2, priority: 3, insertOrder: 1 };
-      const item3: TestItem = { id: 3, priority: 2, insertOrder: 2 };
+      const item1: TestItem = { id: 1, priority: 1, insertTime: 0 };
+      const item2: TestItem = { id: 2, priority: 3, insertTime: 1 };
+      const item3: TestItem = { id: 3, priority: 2, insertTime: 2 };
 
       queue.enqueue(item1);
       queue.enqueue(item2);
@@ -77,7 +77,7 @@ describe('SimplePriorityQueue', () => {
     });
 
     it('should correctly update size after dequeue', () => {
-      queue.enqueue({ id: 1, priority: 1, insertOrder: 0 });
+      queue.enqueue({ id: 1, priority: 1, insertTime: 0 });
       queue.dequeue();
       expect(queue.size()).toBe(0);
       expect(queue.isEmpty()).toBe(true);
@@ -90,12 +90,12 @@ describe('SimplePriorityQueue', () => {
     });
 
     it('should return false when queue has items', () => {
-      queue.enqueue({ id: 1, priority: 1, insertOrder: 0 });
+      queue.enqueue({ id: 1, priority: 1, insertTime: 0 });
       expect(queue.isEmpty()).toBe(false);
     });
 
     it('should return true after all items are dequeued', () => {
-      queue.enqueue({ id: 1, priority: 1, insertOrder: 0 });
+      queue.enqueue({ id: 1, priority: 1, insertTime: 0 });
       queue.dequeue();
       expect(queue.isEmpty()).toBe(true);
     });
@@ -107,17 +107,17 @@ describe('SimplePriorityQueue', () => {
     });
 
     it('should return correct count of enqueued items', () => {
-      queue.enqueue({ id: 1, priority: 1, insertOrder: 0 });
-      queue.enqueue({ id: 2, priority: 2, insertOrder: 1 });
+      queue.enqueue({ id: 1, priority: 1, insertTime: 0 });
+      queue.enqueue({ id: 2, priority: 2, insertTime: 1 });
       expect(queue.size()).toBe(2);
     });
 
     it('should update size correctly after operations', () => {
-      queue.enqueue({ id: 1, priority: 1, insertOrder: 0 });
-      queue.enqueue({ id: 2, priority: 2, insertOrder: 1 });
+      queue.enqueue({ id: 1, priority: 1, insertTime: 0 });
+      queue.enqueue({ id: 2, priority: 2, insertTime: 1 });
       queue.dequeue();
       expect(queue.size()).toBe(1);
-      queue.enqueue({ id: 3, priority: 3, insertOrder: 2 });
+      queue.enqueue({ id: 3, priority: 3, insertTime: 2 });
       expect(queue.size()).toBe(2);
     });
   });
@@ -128,9 +128,9 @@ describe('SimplePriorityQueue', () => {
     });
 
     it('should return all items in priority order', () => {
-      const item1: TestItem = { id: 1, priority: 1, insertOrder: 0 };
-      const item2: TestItem = { id: 2, priority: 3, insertOrder: 1 };
-      const item3: TestItem = { id: 3, priority: 2, insertOrder: 2 };
+      const item1: TestItem = { id: 1, priority: 1, insertTime: 0 };
+      const item2: TestItem = { id: 2, priority: 3, insertTime: 1 };
+      const item3: TestItem = { id: 3, priority: 2, insertTime: 2 };
 
       queue.enqueue(item1);
       queue.enqueue(item2);
@@ -141,8 +141,8 @@ describe('SimplePriorityQueue', () => {
 
     // Test case for equal priority items
     it('should return all items in insertion order for same priority', () => {
-      const item1: TestItem = { id: 1, priority: 2, insertOrder: 0 };
-      const item2: TestItem = { id: 2, priority: 2, insertOrder: 1 };
+      const item1: TestItem = { id: 1, priority: 2, insertTime: 0 };
+      const item2: TestItem = { id: 2, priority: 2, insertTime: 1 };
 
       queue.enqueue(item1);
       queue.enqueue(item2);
@@ -151,7 +151,7 @@ describe('SimplePriorityQueue', () => {
     });
 
     it('should return a copy of items to prevent external modification', () => {
-      const item: TestItem = { id: 1, priority: 1, insertOrder: 0 };
+      const item: TestItem = { id: 1, priority: 1, insertTime: 0 };
       queue.enqueue(item);
 
       const items = queue.getItems();

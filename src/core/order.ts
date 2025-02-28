@@ -6,12 +6,12 @@ export class Order {
   id: number;
   status: OrderStatus;
   priority: OrderPriority;
-  insertOrder: number;
+  insertTime: number;
 
   constructor({ priority, status = OrderStatus.PENDING }: { priority: OrderPriority, status?: OrderStatus }) {
     this.id = Order.nextId++;
     this.status = status;
     this.priority = priority
-    this.insertOrder = 0;
+    this.insertTime = new Date().getTime();
   }
 }
