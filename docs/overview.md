@@ -120,3 +120,4 @@ npm run dev
 ## Deployment
 
 The application is deployed to GitHub Pages and can be accessed at the following URL:
+[https://tcchong.github.io/se-take-home-assignment/](https://tcchong.github.io/se-take-home-assignment/)
